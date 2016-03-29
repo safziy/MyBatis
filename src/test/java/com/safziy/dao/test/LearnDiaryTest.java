@@ -15,10 +15,13 @@ public class LearnDiaryTest extends BaseTest {
 		SqlSession session = sessionFactory.openSession();
 
 		String statement = "com.safziy.bean.learn_diary.mapper.save";
+		
+		LearnDiary learnDiary = new LearnDiary(-1, "第X天的标题", "第X天的内容...", System.currentTimeMillis(), 1);
 		// 返回改变的行数
 		int insert = session
-				.insert(statement, new LearnDiary(-1, "第X天的标题", "第X天的内容...", System.currentTimeMillis(), 1));
-		System.out.println(insert);
+				.insert(statement, learnDiary);
+		System.out.println("LearnDiaryTest testSave() ==" + insert);
+		System.out.println("LearnDiaryTest testSave() ==" + learnDiary);
 		session.commit();
 		session.close();
 	}
@@ -30,7 +33,7 @@ public class LearnDiaryTest extends BaseTest {
 		String statement = "com.safziy.bean.learn_diary.mapper.delete";
 		// 返回改变的行数
 		int delete = session.delete(statement, 4);
-		System.out.println(delete);
+		System.out.println("LearnDiaryTest testDelete() ==" + delete);
 		session.close();
 	}
 
@@ -42,7 +45,7 @@ public class LearnDiaryTest extends BaseTest {
 		// 返回改变的行数
 		int update = session.update(statement,
 				new LearnDiary(3, "第三天的标题", "第三天的内容update...", System.currentTimeMillis(), 1));
-		System.out.println(update);
+		System.out.println("LearnDiaryTest testUpdate() ==" + update);
 		session.close();
 	}
 
@@ -53,7 +56,7 @@ public class LearnDiaryTest extends BaseTest {
 
 		String statement = "com.safziy.bean.learn_diary.mapper.loadById";
 		LearnDiary learnDiary = session.selectOne(statement, 2);
-		System.out.println(learnDiary);
+		System.out.println("LearnDiaryTest testLoadById() ==" + learnDiary);
 		session.commit();
 		session.close();
 	}
@@ -65,7 +68,7 @@ public class LearnDiaryTest extends BaseTest {
 
 		String statement = "com.safziy.bean.learn_diary.mapper.loadAll";
 		List<LearnDiary> list = session.selectList(statement);
-		System.out.println(list);
+		System.out.println("LearnDiaryTest testLoadAll() ==" + list);
 		session.commit();
 		session.close();
 	}

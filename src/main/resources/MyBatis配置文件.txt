@@ -82,6 +82,7 @@ MyBatis配置
 				<select id="loadByName" parameterType="string" resultMap="UserResultMap">
 					select * from user where name=#{name}
 				</select>
+		4)如果在insert中 有自增长的属性 配置useGeneratedKeys="true" 并指定 主键 keyProperty="id" 这个会将JDBC自增长后的主键 赋值会对象中
 
 3.使用注解的方式
 	在MyBatis配置文件中添加

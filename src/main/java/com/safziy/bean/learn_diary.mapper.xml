@@ -11,11 +11,12 @@
 		<id column="create_user" property="createUser"/>
 	</resultMap>
 	
-	<insert id="save" parameterType="LearnDiary">
+	<!--  useGeneratedKeys="true" 将会使用JDBC自增长属性(即自增的主键会被赋值到对象中)  -->
+	<insert id="save" parameterType="LearnDiary" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `learn_diary` (`title`,`content`,`create_time`,`create_user`) VALUES(#{title},#{content},#{createTime},#{createUser})
 	</insert>
 	
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="int" >
 		DELETE FROM `learn_diary` WHERE `id`=#{id}
 	</delete>
 	
