@@ -7,6 +7,8 @@
 	<typeAliases>
 		<!-- 给Bean取一个别名 -->
 		<typeAlias type="com.safziy.bean.LearnDiary" alias="LearnDiary" />
+		<typeAlias type="com.safziy.bean.ClassInfo" alias="ClassInfo" />
+		<typeAlias type="com.safziy.bean.Teacher" alias="Teacher" />
 		<!-- 也可以直接扫描一个包 -->
 		<!-- <package name="com.safziy.bean"/> -->
 	</typeAliases>
@@ -33,6 +35,9 @@
 	<mappers>
 		<mapper resource="com/safziy/bean/user.mapper.xml" />
 		<mapper resource="com/safziy/bean/learn_diary.mapper.xml" />
+		<mapper resource="com/safziy/bean/classinfo.mapper.xml" />
+		<mapper resource="com/safziy/bean/teacher.mapper.xml" />
+		
 		<mapper class="com.safziy.bean.LearnDiaryMapper"/>
 	</mappers>
 
