@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.safziy.bean.learn_diary.mapper">
+	<select id="list" resultType="LearnDiary">
+		select * from learn_diary
+	</select>
+</mapper>

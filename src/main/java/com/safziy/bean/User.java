@@ -1,4 +1,4 @@
-package com.safziy.vo;
+package com.safziy.bean;
 
 public class User {
 	private int id;

@@ -1,0 +1,87 @@
+MyBatis配置
+
+1. 如下面的配置方式
+	<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+	<configuration>
+
+		<typeAliases>
+			<!-- 给Bean取一个别名 -->
+			<typeAlias type="com.safziy.bean.LearnDiary" alias="LearnDiary" />
+			<!-- 也可以直接扫描一个包 -->
+			<!-- <package name="com.safziy.bean"/> -->
+		</typeAliases>
+
+		<!-- development:开发模式 work:工作模式 -->
+		<environments default="development">
+			<environment id="development">
+				<transactionManager type="JDBC" />
+				<dataSource type="POOLED">
+					<property name="driver" value="com.mysql.jdbc.Driver" />
+					<property name="url" value="jdbc:mysql://localhost:3306/test" />
+					<property name="username" value="root" />
+					<property name="password" value="mysafziy" />
+				</dataSource>
+			</environment>
+		</environments>
+
+
+		<mappers>
+			<mapper resource="com/safziy/bean/user.mapper.xml" />
+			<mapper resource="com/safziy/bean/learn_diary.mapper.xml" />
+		</mappers>
+
+	</configuration>
+
+	说明： 数据库连接的4个参数也可以用properties文件来配置 如
+		<!-- 引用配置文件 -->
+		<properties resource="db.properties"></properties>
+
+		<!-- development:开发模式 work:工作模式 -->
+		<environments default="development">
+			<environment id="development">
+				<transactionManager type="JDBC" />
+				<dataSource type="POOLED">
+					<property name="driver" value="${driver}" />
+					<property name="url" value="${url}" />
+					<property name="username" value="${username}" />
+					<property name="password" value="${pwd}" />
+				</dataSource>
+			</environment>
+		</environments>
+
+		db.properties如下
+			driver=com.mysql.jdbc.Driver
+			usr=jdbc:mysql://localhost:3306/test
+			username=root
+			pwd=mysafziy
+
+2.Mapper文件配置
+	<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.safziy.bean.user.mapper">
+		<select id="list" resultType="com.safziy.vo.User">
+			select * from user
+		</select>
+		<select id="loadByName" parameterType="string" resultType="com.safziy.bean.User">
+			select * from user where name=#{name}
+		</select>
+	</mapper>
+
+	说明：
+		a)如果在mybatis配置 配置了别名 <typeAlias type="com.safziy.bean.User" alias="_User" />  则在这个文件中可以简写为_User(可以去任意标示符) 而不用全类名,如果使用的是包扫描的话 则可以简写类名即可
+		b)如果传入的参数是一个类的话 则sql语句中引用的参数需要和类中属性名应该保持一致
+		c)如果数据库表中列名和类中的属性名不一致的话 有两种方式处理 第一种是在sql语句中使用别名
+			I) select sid as id,sname as name,spwd as pwd from user where name=#{name}
+			II) 
+				<resultMap type="com.safziy.bean.User" id="UserResultMap">
+					<!-- id 对应的是主键 result对应的是其他属性 -->
+					<id column="sid" property="id"/>
+					<result column="sname" property="name"/>
+				</resultMap>
+				<select id="loadByName" parameterType="string" resultMap="UserResultMap">
+					select * from user where name=#{name}
+				</select>
+
+3.使用注解的方式
+	
