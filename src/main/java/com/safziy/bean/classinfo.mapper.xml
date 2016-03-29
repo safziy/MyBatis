@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.safziy.bean.classinfo.mapper">
 
+	<!-- 连接查询 -->
+	<select id="loadById" parameterType="int" resultMap="ClassInfoMap">
+		SELECT * FROM `class` c,`teacher` t WHERE c.`teacher_id` = t.`t_id` AND c.`c_id`=#{id}
+	</select>
+	
 	<resultMap type="ClassInfo" id="ClassInfoMap">
 		<id column="c_id" property="id"/>
 		<result column="c_name" property="name"/>
@@ -13,8 +18,19 @@
 		</association>
 	</resultMap>
 	
-	<!--  -->
-	<select id="loadById" parameterType="int" resultMap="ClassInfoMap">
-		SELECT * FROM `class` c,`teacher` t WHERE c.`teacher_id` = t.`t_id` AND c.`c_id`=#{id}
+	<!-- 嵌套查询 -->
+	<select id="loadById2" parameterType="int" resultMap="ClassInfoMap2">
+		SELECT * FROM `class` WHERE `c_id`=#{id}
 	</select>
+	
+	<resultMap type="ClassInfo" id="ClassInfoMap2">
+		<id column="c_id" property="id"/>
+		<result column="c_name" property="name"/>
+		<association property="teacher" column="teacher_id" select="getTeacher" />
+	</resultMap>
+	
+	<select id="getTeacher" parameterType="int" resultType="Teacher">
+		SELECT `t_id` id,`t_name` NAME,`t_sex` sex,`t_age` age FROM `teacher` WHERE `t_id`=#{teacher_id}
+	</select>
+	
 </mapper>
