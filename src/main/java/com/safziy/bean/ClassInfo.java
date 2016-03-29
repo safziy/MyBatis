@@ -1,9 +1,12 @@
 package com.safziy.bean;
 
+import java.util.List;
+
 public class ClassInfo {
 	private int id;
 	private String name;
 	private Teacher teacher;
+	private List<Student> studentList;
 
 	public ClassInfo() {
 	}
@@ -12,6 +15,14 @@ public class ClassInfo {
 		this.id = id;
 		this.name = name;
 		this.teacher = teacher;
+	}
+
+	public ClassInfo(int id, String name, Teacher teacher,
+			List<Student> studentList) {
+		this.id = id;
+		this.name = name;
+		this.teacher = teacher;
+		this.studentList = studentList;
 	}
 
 	public int getId() {
@@ -38,9 +49,18 @@ public class ClassInfo {
 		this.teacher = teacher;
 	}
 
+	public List<Student> getStudentList() {
+		return studentList;
+	}
+
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
+	}
+
 	@Override
 	public String toString() {
-		return "ClassInfo [id=" + id + ", name=" + name + ", teacher=" + teacher + "]";
+		return "ClassInfo [id=" + id + ", name=" + name + ", teacher="
+				+ teacher + ", studentList=" + studentList + "]";
 	}
 
 }

@@ -9,6 +9,7 @@
 		<typeAlias type="com.safziy.bean.LearnDiary" alias="LearnDiary" />
 		<typeAlias type="com.safziy.bean.ClassInfo" alias="ClassInfo" />
 		<typeAlias type="com.safziy.bean.Teacher" alias="Teacher" />
+		<typeAlias type="com.safziy.bean.Student" alias="Student" />
 		<!-- 也可以直接扫描一个包 -->
 		<!-- <package name="com.safziy.bean"/> -->
 	</typeAliases>

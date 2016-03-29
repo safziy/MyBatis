@@ -15,3 +15,10 @@ INSERT INTO `class` (`c_id`,`c_name`,`teacher_id`) VALUES(1,"09软件工程1班"
 INSERT INTO `class` (`c_id`,`c_name`,`teacher_id`) VALUES(2,"09软件工程2班",2);
 INSERT INTO `class` (`c_id`,`c_name`,`teacher_id`) VALUES(3,"09网络工程1班",3);
 
+INSERT INTO `student` (`s_id`,`s_name`,`class_id`) VALUES(1,"李师师",1);
+INSERT INTO `student` (`s_id`,`s_name`,`class_id`) VALUES(2,"张飞",1);
+INSERT INTO `student` (`s_id`,`s_name`,`class_id`) VALUES(3,"曹仁",1);
+INSERT INTO `student` (`s_id`,`s_name`,`class_id`) VALUES(4,"马冬梅",2);
+INSERT INTO `student` (`s_id`,`s_name`,`class_id`) VALUES(5,"李帅",2);
+INSERT INTO `student` (`s_id`,`s_name`,`class_id`) VALUES(6,"李天一",2);
+

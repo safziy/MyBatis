@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.safziy.bean.ClassInfo;
 
 public class ClassInfoTest extends BaseTest {
-
+	
 	@Test
 	public void testLoadById() {
 		// 默认不是自动提交的 需要自动提交的话 sessionFactory.openSession(true)
@@ -26,7 +26,7 @@ public class ClassInfoTest extends BaseTest {
 
 		String statement = "com.safziy.bean.classinfo.mapper.loadById2";
 		ClassInfo classInfo = session.selectOne(statement, 1);
-		System.out.println("ClassInfoTest testLoadById() == " + classInfo);
+		System.out.println("ClassInfoTest testLoadById2() == " + classInfo);
 		session.commit();
 		session.close();
 	}

@@ -1,4 +1,77 @@
 关联查询配置
 
-第一种 一对一关联
+第一种 一对一关联  使用association配置
+	例如下面的 ClassInfo 和 Teacher 是一对一的关系
+	public class ClassInfo {
+		private int id;
+		private String name;
+		private Teacher teacher;
+	}
+	1) 使用连接查询
+		<select id="loadById" parameterType="int" resultMap="ClassInfoMap">
+			SELECT * FROM `class` c,`teacher` t WHERE c.`teacher_id` = t.`t_id` AND c.`c_id`=#{id}
+		</select>
+		
+		<resultMap type="ClassInfo" id="ClassInfoMap">
+			<id column="c_id" property="id"/>
+			<result column="c_name" property="name"/>
+			<association property="teacher" javaType="Teacher">
+				<id column="t_id" property="id"/>
+				<result column="t_name" property="name"/>
+				<result column="t_sex" property="sex"/>
+				<result column="t_age" property="age"/>
+			</association>
+		</resultMap>
+		
+	2）使用嵌套查询
+		<select id="loadById2" parameterType="int" resultMap="ClassInfoMap2">
+			SELECT * FROM `class` WHERE `c_id`=#{id}
+		</select>
+		
+		<resultMap type="ClassInfo" id="ClassInfoMap2">
+			<id column="c_id" property="id"/>
+			<result column="c_name" property="name"/>
+			<association property="teacher" column="teacher_id" select="getTeacher" />
+		</resultMap>
+		
+		<select id="getTeacher" parameterType="int" resultType="Teacher">
+			SELECT `t_id` id,`t_name` name,`t_sex` sex,`t_age` age FROM `teacher` WHERE `t_id`=#{teacher_id}
+		</select>
+		
+第二种 一对多关联  使用collection配置
+	例如下面的 ClassInfo 和 Student 是一对多的关系
+	public class ClassInfo {
+		private int id;
+		private String name;
+		private List<Student> studentList;
+	}
+	1) 使用连接查询
+		<select id="loadById" parameterType="int" resultMap="ClassInfoMap">
+			SELECT * FROM `class` c,`student` s WHERE c.`c_id` = s.`class_id` AND c.`c_id`=#{id}
+		</select>
+		
+		<resultMap type="ClassInfo" id="ClassInfoMap">
+			<id column="c_id" property="id"/>
+			<result column="c_name" property="name"/>
+			<collection property="studentList" ofType="Student">
+				<id column="s_id" property="id"/>
+				<result column="s_name" property="name"/>
+			</collection>
+		</resultMap>
+		
+	2）使用嵌套查询
+		<select id="loadById2" parameterType="int" resultMap="ClassInfoMap2">
+			SELECT * FROM `class` WHERE `c_id`=#{id}
+		</select>
+		
+		<resultMap type="ClassInfo" id="ClassInfoMap2">
+			<id column="c_id" property="id"/>
+			<result column="c_name" property="name"/>
+			<collection property="studentList" column="c_id" select="getStudents" />
+		</resultMap>
+		
+		<select id="getStudents" parameterType="int" resultType="Student">
+			SELECT `s_id` id,`s_name` name FROM `student` WHERE `class_id`=#{c_id}
+		</select>
+	
 	

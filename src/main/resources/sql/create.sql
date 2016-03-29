@@ -34,3 +34,10 @@ CREATE TABLE `class` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 学生表
+CREATE TABLE `student` (
+  `s_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '学生ID',
+  `s_name` varchar(100) NOT NULL COMMENT '学生姓名',
+  `class_id` int(10) unsigned NOT NULL COMMENT '班级ID',
+  PRIMARY KEY (`s_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
