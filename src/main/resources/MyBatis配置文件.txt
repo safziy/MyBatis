@@ -84,4 +84,48 @@ MyBatis配置
 				</select>
 
 3.使用注解的方式
-	
+	在MyBatis配置文件中添加
+		<mapper class="com.safziy.bean.LearnDiaryMapper"/>
+	然后添加对应的接口 不需要实现类  其中@Results 对应解决 列名和属性名不一致的问题
+		public interface LearnDiaryMapper {
+
+			@Insert("INSERT INTO `learn_diary` (`title`,`content`,`create_time`,`create_user`) VALUES(#{title},#{content},#{createTime},#{createUser})")
+			public int save(LearnDiary learnDiary);
+
+			@Delete("DELETE FROM `learn_diary` WHERE `id`=#{id}")
+			public int delete(int id);
+
+			@Update("UPDATE `learn_diary` SET `title`=#{title},`content`=#{content},`create_time`=#{createTime},`create_user`=#{createUser} WHERE `id`=#{id}")
+			public int update(LearnDiary learnDiary);
+
+			@Select("SELECT * FROM `learn_diary` WHERE `id`=#{id}")
+			@Results({ @Result(column = "create_time", property = "createTime"),
+					@Result(column = "create_user", property = "createUser") })
+			public LearnDiary loadById(int id);
+
+			@Select("SELECT `id`,`title`,`content`,`create_time` as createTime,`create_user` as createUser FROM `learn_diary`")
+			public List<LearnDiary> loadAll();
+		}
+
+4.日志的配置  使用log4j来输出日志(需要导入jar)  在src目录下配置 log4j.xml
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+	<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+		<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+			<layout class="org.apache.log4j.PatternLayout">
+				<param name="ConversionPattern" value="%-5p %d{MM-dd HH:mm:ss,SSS} %m  (%F:%L) \n" />
+			</layout>
+		</appender>
+		<logger name="java.sql">
+			<level value="debug" />
+		</logger>
+		<logger name="org.apache.ibatis">
+			<level value="debug" />
+		</logger>
+		<root>
+			<level value="debug" />
+			<appender-ref ref="STDOUT" />
+		</root>
+	</log4j:configuration>
+
+

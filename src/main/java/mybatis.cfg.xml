@@ -33,6 +33,7 @@
 	<mappers>
 		<mapper resource="com/safziy/bean/user.mapper.xml" />
 		<mapper resource="com/safziy/bean/learn_diary.mapper.xml" />
+		<mapper class="com.safziy.bean.LearnDiaryMapper"/>
 	</mappers>
 
 </configuration>

@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.safziy.bean.learn_diary.mapper">
-	<select id="list" resultType="LearnDiary">
-		select * from learn_diary
+
+	<resultMap type="learnDiary" id="learnDiaryMap">
+		<!-- 列名和属性名 相同 则可写可不写 -->
+		<!-- <id column="id" property="id"/>
+		<id column="title" property="title"/>
+		<id column="content" property="content"/> -->
+		<id column="create_time" property="createTime"/>
+		<id column="create_user" property="createUser"/>
+	</resultMap>
+	
+	<insert id="save" parameterType="LearnDiary">
+		INSERT INTO `learn_diary` (`title`,`content`,`create_time`,`create_user`) VALUES(#{title},#{content},#{createTime},#{createUser})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM `learn_diary` WHERE `id`=#{id}
+	</delete>
+	
+	<update id="update" parameterType="LearnDiary">
+		UPDATE `learn_diary` SET `title`=#{title},`content`=#{content},`create_time`=#{createTime},`create_user`=#{createUser} WHERE `id`=#{id}
+	</update>
+	
+	<select id="loadById" parameterType="int" resultMap="learnDiaryMap">
+		SELECT * FROM `learn_diary` WHERE `id`=#{id}
+	</select>
+
+	<select id="loadAll" resultType="LearnDiary">
+		SELECT `id`,`title`,`content`,`create_time` as createTime,`create_user` as createUser FROM `learn_diary`
 	</select>
 </mapper>
