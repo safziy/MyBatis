@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.safziy.bean.user.mapper">
+	<cache />
 	<select id="list" resultType="com.safziy.bean.User">
 		select * from user
 	</select>
 	<select id="loadByName" parameterType="string" resultType="com.safziy.bean.User">
 		select * from user where name=#{name}
+	</select>
+	<select id="loadById" parameterType="int" resultType="com.safziy.bean.User">
+		select * from user where id=#{id}
+	</select>
+	<select id="updateUser" parameterType="com.safziy.bean.User">
+		update user set name=#{name},pwd=#{pwd} where id=#{id}
 	</select>
 </mapper>
