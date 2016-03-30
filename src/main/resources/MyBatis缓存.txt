@@ -1,0 +1,12 @@
+MyBatis 缓存机制
+
+MyBatis有两级缓存 一级缓存(Session级别的缓存) 二级缓存(Mapper/namespace级别的缓存)
+
+一级缓存
+	一级缓存 默认开启 调用Session.clearCache() Session.close()  以及 调用C(create)/U(update)/D(delete) 都会清空一级缓存
+
+二级缓存
+	二级缓存 默认是不开启的 开启需要 在mapper配置文件 中添加  <cache/> 就会开启默认的二级缓存  也可以通过参数配置第三方缓存 需要继承Cache接口
+			二级缓存对应的Bean 需要继承Serializable接口
+
+	问题: 为什么一定要调用 session.commit() 方法才会缓存  开启自动提交也不行 
